@@ -10,4 +10,6 @@ HTML + CSS + JavaScript，原生DOM API，无第三方框架依赖
 运行方式
 直接在浏览器打开 index.html
 
-
+项目结构
+├── index.html    # 页面 + 样式 + JS 逻辑
+├── README.md

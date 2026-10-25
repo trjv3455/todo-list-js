@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo待办清单</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+        .container {
+            width: 420px;
+            margin: 50px auto;
+        }
+        .item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 10px;
+            margin:6px 0;
+            border:1px solid #ddd;
+            border-radius:4px;
+        }
+        .done {
+            text-decoration: line-through;
+            color:#888;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Todo 待办清单</h2>
+        <input id="inputTodo" placeholder="输入待办事项" style="width:75%;padding:6px;">
+        <button onclick="addTodo()" style="padding:6px;">添加</button>
+        <div id="todoList"></div>
+    </div>
+
+    <script>
+        let todoArr = [];
+        const listDom = document.getElementById("todoList");
+
+        function render() {
+            listDom.innerHTML = "";
+            todoArr.forEach((item, idx) => {
+                const div = document.createElement("div");
+                div.className = "item " + (item.done ? "done" : "");
+                div.innerHTML = `
+                    <span>${item.text}</span>
+                    <div>
+                        <button onclick="toggle(${idx})">完成</button>
+                        <button onclick="del(${idx})">删除</button>
+                    </div>
+                `
+                listDom.appendChild(div);
+            })
+        }
+
+        function addTodo() {
+            const val = document.getElementById("inputTodo").value.trim();
+            if(!val) return alert("内容不能为空");
+            todoArr.push({text:val, done:false});
+            document.getElementById("inputTodo").value = "";
+            render();
+        }
+        function toggle(i) {
+            todoArr[i].done = !todoArr[i].done;
+            render();
+        }
+        function del(i) {
+            todoArr.splice(i,1);
+            render();
+        }
+    </script>
+</body>
+</html>
